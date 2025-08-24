@@ -1,4 +1,4 @@
-# This is about Jenkinsfile 
+ 
 
 pipeline {
 	agent any 
