@@ -27,7 +27,7 @@ pipeline {
 			sh 'mvn package'
 }
 			post{
-			sucess {
+			success {
 				ehco 'achiving the artifact' 
 				archiveArtifacts artifacts: '**/*.war', followSymlinks: false, onlyIfSuccessful: true
 }
