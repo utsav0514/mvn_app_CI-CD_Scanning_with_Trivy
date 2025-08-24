@@ -1,53 +1,48 @@
- 
-
 pipeline {
-	agent any 
-	stages{
+    agent any
+    stages {
 
-		stage('validte'){
-                        steps{
-                        echo 'validating the code'
-                        sh 'mvn validate'
-} 
+        stage('Validate') {
+            steps {
+                echo 'Validating the code'
+                sh 'mvn validate'
+            }
+        }
+
+        stage('Compile') {
+            steps {
+                echo 'Compiling the code'
+                sh 'mvn compile'
+            }
+        }
+
+        stage('Build and Package App') {
+            steps {
+                echo 'Building artifact'
+                sh 'mvn package'
+            }
+            post {
+                success {
+                    echo 'Archiving the artifact'
+                    archiveArtifacts artifacts: '**/*.war', followSymlinks: false, onlyIfSuccessful: true
+                }
+            }
+        }
+
+        stage('Creating Docker Image') {
+            steps {
+                echo 'Docker image created'
+                sh 'whoami'
+                sh 'docker build -t mvnimage:$BUILD_NUMBER .'
+            }
+        }
+
+        stage('Scanning the Code with Trivy') {
+            steps {
+                echo 'Scanning the docker image with Trivy'
+                sh 'trivy image -f json -o mvn-report.json mvnimage:$BUILD_NUMBER'
+            }
+        }
+    }
 }
-		stage('compile'){
-			steps{
-			echo 'compiling the code'
-			sh 'mvn compile'
-}	
-}
-		stage('unit test'){
-                        steps{
-                        echo 'test sucessful'
-}
-}
-		stage('Build and package app'){
-                        steps{
-                        echo 'Building artifact'
-			sh 'mvn package'
-}
-			post{
-			success {
-				echo 'achiving the artifact' 
-				archiveArtifacts artifacts: '**/*.war', followSymlinks: false, onlyIfSuccessful: true
-}
-}
-}
-		stage('uplaod artifact'){
-                        steps{
-                        echo 'uploading artifact'
-}
-}
-		stage('creating docker image'){
-                        steps{
-                        echo 'docker image created'
-}
-}
-		stage('scanning docker images'){
-                        steps{
-                        echo 'Docker images scann sucessful'
-}
-}
-}
-}
-	
+
