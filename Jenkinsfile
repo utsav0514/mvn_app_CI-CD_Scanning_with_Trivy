@@ -28,7 +28,7 @@ pipeline {
 }
 			post{
 			success {
-				ehco 'achiving the artifact' 
+				echo 'achiving the artifact' 
 				archiveArtifacts artifacts: '**/*.war', followSymlinks: false, onlyIfSuccessful: true
 }
 }
