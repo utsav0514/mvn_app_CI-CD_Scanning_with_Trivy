@@ -46,7 +46,7 @@ pipeline {
 	 stage('push docker image to docker hub ') {
             steps {
 		echo 'pusing the docker image'
-		withdockerregistery([credentialsID:'docker-id', url:'']){
+		withDockerRegistry([credentialsID: 'docker-id', url: '']){
 		sh 'docker image push mvnimage:$BUILD_NUMBER'
 }
             }
