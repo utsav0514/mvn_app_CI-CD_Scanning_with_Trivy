@@ -24,6 +24,13 @@ pipeline {
 		stage('Build and package app'){
                         steps{
                         echo 'Building artifact'
+			sh 'mvn package'
+}
+			post{
+			sucess {
+				ehco 'achiving the artifact' 
+				archiveArtifacts artifacts: '**/*.war', followSymlinks: false, onlyIfSuccessful: true
+}
 }
 }
 		stage('uplaod artifact'){
