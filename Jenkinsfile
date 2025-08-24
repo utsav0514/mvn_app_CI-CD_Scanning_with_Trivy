@@ -43,6 +43,14 @@ pipeline {
                 sh 'trivy image -f json -o mvn-report.json mvnimage:$BUILD_NUMBER'
             }
         }
+	 stage('push docker image to docker hub ') {
+            steps {
+		echo 'pusing the docker image'
+		withdockerregistery([credentialsID:'docker-id', url:'']){
+		sh 'docker image push mvnimage:$BUILD_NUMBER'
+}
+            }
+        }
     }
 }
 
