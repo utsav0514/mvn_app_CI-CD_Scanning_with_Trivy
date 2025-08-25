@@ -47,7 +47,8 @@ pipeline {
             steps {
 		echo 'pusing the docker image'
 		withDockerRegistry([credentialsId: 'dokcer-id', url: '']){
-		sh 'docker image push utsav0514/mvnimage:$BUILD_NUMBER'
+		sh 'docker tag mvnimage:$BUILD_NUMBER utsav0514/mvn_app:v1'
+		sh 'docker push utsav0514/mvn_app:v1'
 }
             }
         }
