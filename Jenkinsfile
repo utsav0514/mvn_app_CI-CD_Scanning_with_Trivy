@@ -90,12 +90,12 @@ pipeline {
         success {
             mail to: "utsavshrestha2003@gmail.com",
                  subject: "Check the report of success",
-                 body: "The job that succeeded is ${JOB_NAME}"
+                 body: "The job that succeeded is ${JOB_NAME} ${BUILD_URL}"
         }
         failure {
             mail to: "hamsurr@gmail.com",
                  subject: "Failure of the job",
-                 body: "Please check the job: ${JOB_NAME}"
+                 body: "Please check the job: ${JOB_NAME} ${BUILD_URL}"
         }
     }
 }
