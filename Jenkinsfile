@@ -65,9 +65,9 @@ pipeline {
 	stage('Deploying in production level'){
 	 steps{
 		sh '''
-                        docker stop mvn_app || true
-                        docker rm -f mvn_app || true
-                        docker run -dit -p 8088:8080 --name mvn_app utsav0514/mvn_app:v1
+                        docker stop mvn2_app || true
+                        docker rm -f mvn2_app || true
+                        docker run -dit -p 8088:8080 --name mvn2_app utsav0514/mvn_app:v1
                 ''' 
 }
 }
