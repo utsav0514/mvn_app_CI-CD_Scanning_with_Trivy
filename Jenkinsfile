@@ -3,6 +3,9 @@ pipeline {
     stages {
 
         stage('Validate') {
+	agent {
+		label'node_for_vagrant_node'
+}
             steps {
                 echo 'Validating the code'
                 sh 'mvn validate'
@@ -10,6 +13,9 @@ pipeline {
         }
 
         stage('Compile') {
+ agent {
+                label'node_for_vagrant_node'
+}
             steps {
                 echo 'Compiling the code'
                 sh 'mvn compile'
