@@ -93,7 +93,7 @@ pipeline {
                  body: "The job that succeeded is ${JOB_NAME} ${BUILD_URL}"
         }
         failure {
-            mail to: "hamsurr@gmail.com",
+            mail to: "ujwalshresthakanxhu.1713@gmail.com",
                  subject: "Failure of the job",
                  body: "Please check the job: ${JOB_NAME} ${BUILD_URL}"
         }
