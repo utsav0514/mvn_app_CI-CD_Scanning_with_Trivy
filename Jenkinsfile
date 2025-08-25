@@ -56,7 +56,7 @@ pipeline {
 	steps{
 		sh ''' 
 			docker stop mvn_app || true 
-			docker rm -f mvn app || true 
+			docker rm -f mvn_app || true 
 			docker run -dit -p 8087:8080 --name mvn_app utsav0514/mvn_app:v1
 		'''
 }
@@ -66,7 +66,7 @@ pipeline {
 	 steps{
 		sh '''
                         docker stop mvn_app || true
-                        docker rm -f mvn app || true
+                        docker rm -f mvn_app || true
                         docker run -dit -p 8088:8080 --name mvn_app utsav0514/mvn_app:v1
                 ''' 
 }
