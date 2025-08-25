@@ -64,6 +64,10 @@ pipeline {
 
 	stage('Deploying in production level'){
 	 steps{
+		timeout(time:1, unit:'DAYS'){
+		input message: 'Are you sure want to aprove deployment?'
+}		
+		echo 'Depolying in production level'
 		sh '''
                         docker stop mvn2_app || true
                         docker rm -f mvn2_app || true
