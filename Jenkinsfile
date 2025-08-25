@@ -82,5 +82,24 @@ pipeline {
 }
 }
     }
+post {
+  always {
+       mail to: "utshavshrestha.1713@gmail.com"
+	subject: "report on sucess or failure"
+	body: "plese checkout the report ${BUILD_URL}"
+
+}
+success{
+	mail to: "utsavshrestha2003@gmail.com"
+	subject: "check the report of sucess"
+	body: "The job name that sucess is  ${JOB_NAME}"
+}
+failure{
+	mail to: "hamsurr@gmail.com"
+	subject: "failure of the job"
+	body: "plese check the job:  ${JOB_NAME}"
+
+}
+}
 }
 
