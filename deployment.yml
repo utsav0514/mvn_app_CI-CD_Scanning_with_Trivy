@@ -1,6 +1,6 @@
 ---
 - name: Deploying mvn app 
-  hosts: machine 
+  hosts: slave 
   become: yes
   become_user: root
   roles: 
