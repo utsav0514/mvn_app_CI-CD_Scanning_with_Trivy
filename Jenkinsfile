@@ -64,7 +64,7 @@ pipeline {
                 sh '''
                     docker stop mvn_app || true
                     docker rm -f mvn_app || true
-                    docker run -dit -p 8087:8080 --name mvn_app utsav0514/mvn_app:v1
+                    docker run -dit -p 8087:8087 --name mvn_app utsav0514/mvn_app:v1
                 '''
             }
         }
