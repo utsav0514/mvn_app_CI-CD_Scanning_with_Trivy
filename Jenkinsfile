@@ -1,9 +1,8 @@
 pipeline {
-    agent any
+    agent slave-1
     stages {
 
         stage('Validate') {
-            agent { label 'node_for_vagrant_node' }
             steps {
                 echo 'Validating the code'
                 sh 'mvn validate'
@@ -42,7 +41,10 @@ pipeline {
         stage('Scanning the Code with Trivy') {
             steps {
                 echo 'Scanning the docker image with Trivy'
-                sh 'trivy image -f json -o mvn-report.json mvnimage:$BUILD_NUMBER'
+                sh '''
+                trivy image -f json -o mvn-report.json mvnimage:$BUILD_NUMBER
+                trivy image --severity HIGH,CRITICAL --exit-code 1 mvnimage:$BUILD_NUMBER 
+                '''
             }
         }
 
@@ -50,8 +52,10 @@ pipeline {
             steps {
                 echo 'Pushing the docker image'
                 withDockerRegistry([credentialsId: 'dokcer-id', url: '']) {
-                    sh 'docker tag mvnimage:$BUILD_NUMBER utsav0514/mvn_app:v1'
-                    sh 'docker push utsav0514/mvn_app:v1'
+                    sh '''
+                        docker tag mvnimage:$BUILD_NUMBER utsav0514/mvn_app:v1
+                        docker push utsav0514/mvn_app:v1    
+                        '''
                 }
             }
         }
@@ -59,8 +63,8 @@ pipeline {
         stage('Deploying in Localhost') {
             steps {
                 sh '''
-                    docker stop mvn_app || true 
-                    docker rm -f mvn_app || true 
+                    docker stop mvn_app || true
+                    docker rm -f mvn_app || true
                     docker run -dit -p 8087:8080 --name mvn_app utsav0514/mvn_app:v1
                 '''
             }
@@ -72,11 +76,9 @@ pipeline {
                     input message: 'Are you sure you want to approve deployment?'
                 }
                 echo 'Deploying in production level'
-                sh '''
-                    docker stop mvn2_app || true
-                    docker rm -f mvn2_app || true
-                    docker run -dit -p 8088:8080 --name mvn2_app utsav0514/mvn_app:v1
-                '''
+
+                   sh 'ansible-playbook playbook.yml'
+
             }
         }
     }
@@ -99,4 +101,3 @@ pipeline {
         }
     }
 }
-

@@ -1,0 +1,33 @@
+- name: Installation of Docker on Ubuntu
+  apt:
+    name: docker.io
+    state: present
+  when: ansible_distribution == "Ubuntu"
+
+- name: Installation of Docker on CentOS
+  yum:
+    name: docker
+    state: present
+  when: ansible_distribution == "CentOS"
+
+- name: Ensure Docker service is running
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: Pull an image
+  community.docker.docker_image:
+    name: utsav0514/mvn_app
+    tag: stable
+    source: pull
+
+- name: Run the Maven app container
+  community.docker.docker_container:
+    name: mvn_app2
+    image: utsav0514/mvn_app:stable
+    state: started
+    restart: true
+    published_ports:
+      - "{{ port_number }}"
+

@@ -1,0 +1,7 @@
+#SPDX-License-Identifier: MIT-0
+---
+# vars file for ansible_project
+
+
+
+port_number: 8095:8080
