@@ -4,11 +4,6 @@
     state: present
   when: ansible_distribution == "Ubuntu"
 
-- name: Installation of Docker on CentOS
-  yum:
-    name: docker-ce
-    state: present
-  when: ansible_distribution == "CentOS"
 
 - name: Ensure Docker service is running
   service:
