@@ -6,7 +6,7 @@
 
 - name: Installation of Docker on CentOS
   yum:
-    name: docker
+    name: docker-ce
     state: present
   when: ansible_distribution == "CentOS"
 
@@ -22,8 +22,10 @@
     groups: docker
     append: yes
 
-- name: Reset SSH connection to refresh group membership
-  meta: reset_connection
+- name: Restarting the docker service 
+  service:
+    name: docker 
+    state: restarted 
 
 - name: Pull an image
   community.docker.docker_image:
