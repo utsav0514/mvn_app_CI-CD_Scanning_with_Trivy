@@ -30,7 +30,7 @@
 - name: Pull an image
   community.docker.docker_image:
     name: utsav0514/mvn_app
-    tag: stable
+    tag: v1
     source: pull
 
 - name: Run the Maven app container
