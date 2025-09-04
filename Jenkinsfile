@@ -76,7 +76,7 @@ pipeline {
                 }
                 echo 'Deploying in production level'
                 sh '''
-                    source /home/vagrant/mvn_app_ansible/.venv/bin/activate
+                    source /home/vagrant/.venv/bin/activate
                     ansible-playbook deployment.yml
                 '''
             }
