@@ -14,8 +14,8 @@
   
 
 4.The CI/CD flow looks like this:
-   Jenkins Pipeline → Maven Build → Docker Image Build → Trivy Scan → Docker Push → Deployment via Ansible
-
+    ![image alt](https://github.com/utsav0514/mvn_app_CI-CD_trivy_and_ansible/blob/main/pipeline.png)
+    
 5.
     - **Local deployment:** Runs the container on **port 8096**  
     - **Production deployment:** Deployed via Ansible on **port 8095**
