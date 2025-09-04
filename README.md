@@ -14,6 +14,19 @@
   
 
 3. The CI/CD flow looks like this:
-   
+   Jenkins Pipeline → Maven Build → Docker Image Build → Trivy Scan → Docker Push → Deployment via Ansible
+
+4.- **Local deployment:** Runs the container on **port 8096**  
+- **Production deployment:** Deployed via Ansible on **port 8095**
+
+5. Prerequisites
+Before running this pipeline, make sure you have:  
+- Jenkins installed and configured  
+- Docker installed on Jenkins and remote nodes  
+- Ansible installed (either system-wide or in a virtual environment)  
+- Java and Maven installed  
+- Git
+  
+
 
     
