@@ -41,8 +41,8 @@ pipeline {
             steps {
                 echo 'Scanning the docker image with Trivy'
                 sh '''
-                trivy image -f json -o mvn-report.json mvnimage:$BUILD_NUMBER
-                trivy image --severity HIGH,CRITICAL --exit-code 1 mvnimage:$BUILD_NUMBER 
+                    trivy image -f json -o mvn-report.json mvnimage:$BUILD_NUMBER
+                    trivy image --severity HIGH,CRITICAL --exit-code 1 mvnimage:$BUILD_NUMBER
                 '''
             }
         }
@@ -53,8 +53,8 @@ pipeline {
                 withDockerRegistry([credentialsId: 'dokcer-id', url: '']) {
                     sh '''
                         docker tag mvnimage:$BUILD_NUMBER utsav0514/mvn_app:v1
-                        docker push utsav0514/mvn_app:v1    
-                        '''
+                        docker push utsav0514/mvn_app:v1
+                    '''
                 }
             }
         }
@@ -75,9 +75,10 @@ pipeline {
                     input message: 'Are you sure you want to approve deployment?'
                 }
                 echo 'Deploying in production level'
-
-                   sh 'ansible-playbook deployment.yml'
-
+                sh '''
+                    source /home/vagrant/mvn_app_ansible/.venv/bin/activate
+                    ansible-playbook deployment.yml
+                '''
             }
         }
     }
@@ -100,3 +101,4 @@ pipeline {
         }
     }
 }
+
