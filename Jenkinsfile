@@ -80,7 +80,7 @@ pipeline {
                     . .venv/bin/activate
                     pip install --upgrade pip
                     pip install ansible
-                    ansible-playbook deployment.yml
+                   sudo ansible-playbook deployment.yml
                 '''
             }
         }
