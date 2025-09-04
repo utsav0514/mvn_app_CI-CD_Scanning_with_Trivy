@@ -36,7 +36,7 @@
 - name: Run the Maven app container
   community.docker.docker_container:
     name: mvn_app2
-    image: utsav0514/mvn_app:stable
+    image: utsav0514/mvn_app:v1
     state: started
     restart: true
     published_ports:
