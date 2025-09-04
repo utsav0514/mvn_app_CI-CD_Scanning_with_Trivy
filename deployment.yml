@@ -2,6 +2,7 @@
 - name: Deploying mvn app 
   hosts: machine 
   become: yes
+  become_user: root
   roles: 
     - ansible_project
 
