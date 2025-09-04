@@ -76,7 +76,10 @@ pipeline {
                 }
                 echo 'Deploying in production level'
                 sh '''
+                    python3 -m venv .venv
                     . .venv/bin/activate
+                    pip install --upgrade pip
+                    pip install ansible
                     ansible-playbook deployment.yml
                 '''
             }
