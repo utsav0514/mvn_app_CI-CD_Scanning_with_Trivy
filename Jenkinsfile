@@ -75,9 +75,11 @@ pipeline {
                     input message: 'Are you sure you want to approve deployment?'
                 }
                 echo 'Deploying in production level'
-
-			sh '/home/vagrant/mvn_app_ansible/.venv/bin/ansible-playbook deployment.yml'        
-    }
+                sh '''
+                    . .venv/bin/activate
+                    ansible-playbook deployment.yml
+                '''
+            }
         }
     }
 
