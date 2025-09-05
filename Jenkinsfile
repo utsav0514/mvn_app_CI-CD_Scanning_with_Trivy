@@ -76,7 +76,7 @@ pipeline {
                 }
                 echo 'Deploying in production level'
                 sh '''
-                   sudo ansible-playbook deployment.yml
+                    ansible-playbook deployment.yml
                 '''
             }
         }
